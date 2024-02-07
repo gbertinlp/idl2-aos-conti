@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import axios from 'axios';
+import { BrowserRouter as Router, Route, Navigate } from 'react-router-dom';
+import Dashboard from './Dashboard';
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App = () => {
+    const [apiKey, setApiKey] = useState('');
+    const [password, setPassword] = useState('');
+    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [data, setData] = useState('');
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    const handleLogin = async () => {
+        try {
+            const response = await axios.get('http://tu-dominio.com/password', {
+                headers: {
+                    'x-api-key': apiKey,
+                },
+            });
 
-export default App
+            setLoggedIn(true);
+            setData(response.data);
+        } catch (error) {
+            console.error('Error logging in:', error);
+        }
+    };
+
+    const handleLogout = () => {
+        setApiKey('');
+        setPassword('');
+        setLoggedIn(false);
+        setData('');
+    };
+
+    return (
+        <Router>
+            <div className="app-container">
+                <Route path="/" exact>
+                    {isLoggedIn ? (
+                        <Navigate to="/dashboard" />
+                    ) : (
+                        <div className="login-container">
+                            <h2>Login</h2>
+                            <label>
+                                API Key:
+                                <input type="text" value={apiKey} onChange={(e) => setApiKey(e.target.value)} />
+                            </label>
+                            <label>
+                                Password:
+                                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                            </label>
+                            <button onClick={handleLogin}>Login</button>
+                        </div>
+                    )}
+                </Route>
+
+                <Route path="/dashboard">
+                    {isLoggedIn ? (
+                        <Dashboard data={data} onLogout={handleLogout} />
+                    ) : (
+                        <Navigate to="/" />
+                    )}
+                </Route>
+            </div>
+        </Router>
+    );
+};
+
+export default App;
