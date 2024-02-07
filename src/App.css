@@ -1,9 +1,3 @@
-.app-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
 
 .login-container {
   text-align: center;

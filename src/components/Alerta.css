@@ -1,0 +1,13 @@
+.alerta__message{
+    text-align: center;
+    padding: 3px;
+    border-radius: 1rem;
+    color: white;
+    font-weight: bold;
+}
+.alerta__message-on{
+    background-color: #f6c200;
+}
+.alerta__message-off{
+    background-color: #6FCCF4;
+}
