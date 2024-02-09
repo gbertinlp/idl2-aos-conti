@@ -1,0 +1,72 @@
+/* Dashboard.css */
+
+.dashboard-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.dashboard__title{
+    color: var(--color-principal);
+    margin: 2rem 0;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+.carousel {
+    position: relative;
+    margin-top: 20px;
+}
+
+img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.dashboard__info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard__button-img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    color: #0b3b64;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+.dashboard__button{
+    background-color: #fff;
+    color: #0b3b64;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    margin: auto auto;
+}
+
+button:hover {
+    background-color: #0b3b64;
+    color: white;
+    border: 0.2rem solid var(--color-tertiary);
+}
+
+button:first-child {
+    left: 10px;
+}
+
+button:last-child {
+    right: 10px;
+}

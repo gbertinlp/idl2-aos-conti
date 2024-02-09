@@ -4,7 +4,7 @@
   --color-secondary: #f6c200;
   --color-tertiary: #68cebb;
 
-  --color-background: #c2e2ef;
+  --color-background: #0b3b64;
   --color-transparent: transparent;
 
   --color-icon: #B5B6B7;
@@ -43,10 +43,15 @@ html{
 }
 
 body{
-  min-height: 100vh;
-  scroll-behavior: smooth;
-  text-rendering: optimizeSpeed;
-  line-height: 1.5;
+  width: 100%;
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  color: var(--color-text);
+  background-color: var(--color-background);
+
+  /*neutralizar el scroll con la imagen de fondo*/
+  overflow: hidden;
 }
 
 ul,ol{
@@ -56,6 +61,11 @@ ul,ol{
 a{
   text-decoration: none;
   display: block;
+}
+
+h2{
+  margin-bottom: 2rem;
+  padding: 0 2rem;
 }
 
 img, video, iframe, picture, figure{
@@ -72,6 +82,11 @@ form, input, select, textarea, button, label{
   font-family: inherit;
   font-size: inherit;
   color: inherit;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
 }
 
 

@@ -1,14 +1,17 @@
 import React, {useState} from 'react';
-import './LoginPage.css';
+import './Login.css';
 import Alerta from "../../components/Alerta.jsx";
 import clientAxios from "../../config/clientAxios.jsx";
 import useAuth from "../../hooks/useAuth.jsx";
+import {useNavigate} from "react-router-dom";
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [alerta, setAlerta] = useState({})
 
     const { setAuth } = useAuth();
+
+    const navigate = useNavigate();
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -18,6 +21,8 @@ const Login = () => {
                 msg: 'Todos los campos son obligatorios',
                 error: true
             });
+            // Limpiar el mensaje de error después de 5 segundos
+            setTimeout(() => setAlerta({}), 3000);
             return
         }
 
@@ -31,12 +36,17 @@ const Login = () => {
             setAlerta({})
             localStorage.setItem('token', data.token)
             setAuth(data)
+            navigate('/dashboard')
 
         }catch (err){
             setAlerta({
-                msg: err.response.data.msg,
-                error: true
+                msg: err.response.data.msg || 'Credenciales no Autorizadas',
+                error: true,
             })
+            // Limpiar el mensaje de error después de 5 segundos
+            setEmail('')
+            setPassword('')
+            setTimeout(() => setAlerta({}), 3000);
         }
 
     }
@@ -45,22 +55,30 @@ const Login = () => {
 
     return (
         <div>
-            <div className="login-container">
-                <h2>Login</h2>
+            <div className="login__container">
+                <h2 className='kristen'>Access Platform</h2>
 
                 {msg && <Alerta alerta={alerta } />}
 
                 <form onSubmit={ handleSubmit }>
                     <div>
-                        <label>Email</label>
-                        <input type="email" value={email} onChange={e => setEmail(e.target.value)}/>
+                        <label className='login__label'>Email</label>
+                        <input
+                            type="email"
+                            value={email}
+                            className='login__input'
+                            onChange={e => setEmail(e.target.value)}/>
                     </div>
                     <div>
-                        <label>Password</label>
-                        <input type="password" value={password} onChange={e => setPassword(e.target.value)}/>
+                        <label className='login__label'>Password</label>
+                        <input
+                            type="password"
+                            value={password}
+                            className='login__input'
+                            onChange={e => setPassword(e.target.value)}/>
                     </div>
 
-                    <input type='submit' value='Iniciar Acceso'/>
+                    <input type='submit' value='Iniciar Acceso' className='login__submit'/>
                 </form>
             </div>
         </div>
